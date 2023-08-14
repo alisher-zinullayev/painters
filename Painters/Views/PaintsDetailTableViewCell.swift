@@ -38,24 +38,11 @@ final class PaintsDetailTableViewCell: UITableViewCell {
         return label
     }()
 
-    private let showMoreLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .gray
-        label.font = UIFont.systemFont(ofSize: 10)
-        label.text = "Select For More Info"
-        label.textAlignment = .center
-        label.isUserInteractionEnabled = true
-        return label
-    }()
-    
     private let containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
-    private var workInfoHeightConstraint: NSLayoutConstraint!
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -72,7 +59,6 @@ final class PaintsDetailTableViewCell: UITableViewCell {
         containerView.addSubview(workPicture)
         containerView.addSubview(workName)
         containerView.addSubview(workInfo)
-        containerView.addSubview(showMoreLabel)
     }
 
     private func setupUI() {
@@ -90,7 +76,7 @@ final class PaintsDetailTableViewCell: UITableViewCell {
         ]
         let workNameConstraints = [
             workName.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10),
-            workName.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 0),
+            workName.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10),
             workName.topAnchor.constraint(equalTo: workPicture.bottomAnchor, constant: 10),
         ]
         let workInfoConstraints = [
@@ -99,43 +85,30 @@ final class PaintsDetailTableViewCell: UITableViewCell {
             workInfo.topAnchor.constraint(equalTo: workName.bottomAnchor, constant: 8),
             workInfo.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -8)
         ]
-        let showMoreLabelConstraints = [
-            showMoreLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            showMoreLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            showMoreLabel.topAnchor.constraint(equalTo: workName.bottomAnchor, constant: 10),
-            showMoreLabel.heightAnchor.constraint(equalToConstant: 20)
-        ]
-        
-        NSLayoutConstraint.activate(showMoreLabelConstraints)
         NSLayoutConstraint.activate(containerViewConstraints)
         NSLayoutConstraint.activate(workPictureConstraints)
         NSLayoutConstraint.activate(workNameConstraints)
         NSLayoutConstraint.activate(workInfoConstraints)
-        
-//        workPicture.setContentHuggingPriority(.required, for: .vertical)
-//        workPicture.setContentCompressionResistancePriority(.required, for: .vertical)
-
-        workInfoHeightConstraint = workInfo.heightAnchor.constraint(equalToConstant: 20)
-        workInfoHeightConstraint.priority = .defaultHigh
-        workInfoHeightConstraint.isActive = true
     }
 
-    func configure(painting painterName: String, with workName: String, description: String?, isOpened: Bool) {
+    func configure(painting paintingName: String, with workName: String, description: String?, isOpened: Bool) {
+        
         self.workName.text = workName
-        workInfo.text = description ?? "Description not available"
-        showMoreLabel.isHidden = isOpened
-        workInfo.isHidden = !isOpened
+        
+        if isOpened == false {
+            workInfo.textColor = .red
+            workInfo.textAlignment = .center
+            workInfo.text = "Tap For Details >"
+        } else {
+            workInfo.textColor = .gray
+            workInfo.textAlignment = .left
+            workInfo.text = description
+        }
 
-        print("Loading image for key:", workName)
-        if let image = UIImage(named: painterName) {
+        if let image = UIImage(named: paintingName) {
             workPicture.image = image
         } else {
             print("Image not found for key:", workName)
         }
-
-        let workInfoSize = workInfo.sizeThatFits(CGSize(width: workInfo.frame.width, height: CGFloat.greatestFiniteMagnitude))
-        workInfoHeightConstraint.constant = isOpened ? workInfoSize.height : 18
-        
-        layoutIfNeeded()
     }
 }

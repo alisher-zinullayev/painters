@@ -17,6 +17,7 @@
 		43A2531D2A7A63BB00771AAE /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A2531C2A7A63BB00771AAE /* MainTableViewCell.swift */; };
 		43A2531F2A7A7C1B00771AAE /* PaintsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A2531E2A7A7C1B00771AAE /* PaintsDetailViewController.swift */; };
 		43A253212A7B9B9900771AAE /* PaintsDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A253202A7B9B9900771AAE /* PaintsDetailTableViewCell.swift */; };
+		43AEA50E2A8A104B002A8F2B /* Paintings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43AEA50D2A8A104B002A8F2B /* Paintings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		43A2531C2A7A63BB00771AAE /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		43A2531E2A7A7C1B00771AAE /* PaintsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintsDetailViewController.swift; sourceTree = "<group>"; };
 		43A253202A7B9B9900771AAE /* PaintsDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintsDetailTableViewCell.swift; sourceTree = "<group>"; };
+		43AEA50D2A8A104B002A8F2B /* Paintings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paintings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,17 +68,42 @@
 			children = (
 				4324EB6E2A7992C7005DD50F /* AppDelegate.swift */,
 				4324EB702A7992C7005DD50F /* SceneDelegate.swift */,
-				4324EB722A7992C7005DD50F /* MainViewController.swift */,
-				43A2531C2A7A63BB00771AAE /* MainTableViewCell.swift */,
-				43A2531E2A7A7C1B00771AAE /* PaintsDetailViewController.swift */,
-				43A253202A7B9B9900771AAE /* PaintsDetailTableViewCell.swift */,
-				43A2531A2A7A5E6D00771AAE /* Painters.swift */,
+				43AEA50A2A8A0A0A002A8F2B /* ViewControllers */,
+				43AEA50B2A8A0A15002A8F2B /* Views */,
+				43AEA50C2A8A0A2E002A8F2B /* Models */,
 				4324EB742A7992C7005DD50F /* Main.storyboard */,
 				4324EB772A7992C9005DD50F /* Assets.xcassets */,
 				4324EB792A7992C9005DD50F /* LaunchScreen.storyboard */,
 				4324EB7C2A7992C9005DD50F /* Info.plist */,
 			);
 			path = Painters;
+			sourceTree = "<group>";
+		};
+		43AEA50A2A8A0A0A002A8F2B /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				4324EB722A7992C7005DD50F /* MainViewController.swift */,
+				43A2531E2A7A7C1B00771AAE /* PaintsDetailViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		43AEA50B2A8A0A15002A8F2B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				43A2531C2A7A63BB00771AAE /* MainTableViewCell.swift */,
+				43A253202A7B9B9900771AAE /* PaintsDetailTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		43AEA50C2A8A0A2E002A8F2B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				43A2531A2A7A5E6D00771AAE /* Painters.swift */,
+				43AEA50D2A8A104B002A8F2B /* Paintings.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,6 +184,7 @@
 				43A2531F2A7A7C1B00771AAE /* PaintsDetailViewController.swift in Sources */,
 				43A2531D2A7A63BB00771AAE /* MainTableViewCell.swift in Sources */,
 				43A2531B2A7A5E6D00771AAE /* Painters.swift in Sources */,
+				43AEA50E2A8A104B002A8F2B /* Paintings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

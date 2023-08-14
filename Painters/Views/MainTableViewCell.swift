@@ -56,13 +56,6 @@ class MainTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func addSubviews() {
-        contentView.addSubview(containerView)
-        containerView.addSubview(name)
-        containerView.addSubview(information)
-        containerView.addSubview(picture)
-    }
-
     private func setupUI() {
         let containerConstraints = [
             containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -72,9 +65,8 @@ class MainTableViewCell: UITableViewCell {
         ]
 
         let pictureConstraints = [
-            picture.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 0),
+            picture.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 4),
             picture.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
-            picture.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -40),
             picture.heightAnchor.constraint(equalToConstant: 300),
             picture.widthAnchor.constraint(equalToConstant: 200)
         ]
@@ -82,10 +74,12 @@ class MainTableViewCell: UITableViewCell {
             name.topAnchor.constraint(equalTo: picture.bottomAnchor, constant: 10),
             name.leadingAnchor.constraint(equalTo: picture.leadingAnchor),
             name.trailingAnchor.constraint(equalTo: picture.trailingAnchor),
+            name.bottomAnchor.constraint(lessThanOrEqualTo: containerView.bottomAnchor, constant: -8)
+//            name.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -8),
         ]
         let informationConstraints = [
-            information.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 5),
-            information.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -10),
+            information.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
+            information.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -8),
             information.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: contentView.bounds.width/2 + 60),
             information.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
         ]
@@ -93,6 +87,13 @@ class MainTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate(informationConstraints)
         NSLayoutConstraint.activate(pictureConstraints)
         NSLayoutConstraint.activate(nameConstraints)
+    }
+    
+    private func addSubviews() {
+        contentView.addSubview(containerView)
+        containerView.addSubview(name)
+        containerView.addSubview(information)
+        containerView.addSubview(picture)
     }
 
     func configure(with painter: Painter) {

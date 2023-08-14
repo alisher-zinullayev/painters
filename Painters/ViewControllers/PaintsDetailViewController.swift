@@ -9,8 +9,9 @@ import UIKit
 
 final class PaintsDetailViewController: UIViewController {
 
-    var painter: Painter?
-
+//    var painter: Painter?
+    var paintings: [Paintings]
+    let moreInfoText = "Tap For Details >"
     private let worksTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(PaintsDetailTableViewCell.self, forCellReuseIdentifier: PaintsDetailTableViewCell.identifier)
@@ -20,13 +21,11 @@ final class PaintsDetailViewController: UIViewController {
         return tableView
     }()
 
-    private var workOpenStates: [String: Bool] = [:]
-
-    init(painter: Painter? = nil) {
-        self.painter = painter
+    init(paintings: [Paintings]) {
+        self.paintings = paintings
         super.init(nibName: nil, bundle: nil)
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -51,37 +50,27 @@ final class PaintsDetailViewController: UIViewController {
 
 extension PaintsDetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let painter = painter else {
-            return 0
-        }
-        return painter.works.count
+        return paintings.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PaintsDetailTableViewCell.identifier, for: indexPath) as! PaintsDetailTableViewCell
-        if let painter = painter {
-            let workName = painter.works[indexPath.row]
-            let isOpened = workOpenStates[workName, default: false]
-            cell.configure(painting: painter.worksPicture[workName]!, with: workName, description: painter.workDescription[workName], isOpened: isOpened)
-        }
+        cell.configure(painting: paintings[indexPath.row].workPicture, with: paintings[indexPath.row].workName, description: paintings[indexPath.row].workDescription, isOpened: false)
         return cell
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-
-        if let cell = tableView.cellForRow(at: indexPath) as? PaintsDetailTableViewCell,
-           let painter = painter {
-            let workName = painter.works[indexPath.row]
-            workOpenStates[workName, default: false].toggle()
-            cell.configure(painting: painter.worksPicture[workName]!, with: workName, description: painter.workDescription[workName], isOpened: workOpenStates[workName, default: false])
-
-            tableView.beginUpdates()
-            tableView.endUpdates()
+        guard let cell = tableView.cellForRow(at: indexPath) as? PaintsDetailTableViewCell else { return }
+        let selectedPainting = paintings[indexPath.row]
+        selectedPainting.isOpened = !selectedPainting.isOpened
+        if selectedPainting.isOpened == true {
+            cell.configure(painting: selectedPainting.workPicture, with: selectedPainting.workName, description: selectedPainting.workDescription, isOpened: true)
+        } else {
+            cell.configure(painting: selectedPainting.workPicture, with: selectedPainting.workName, description: moreInfoText, isOpened: false)
         }
+        tableView.beginUpdates()
+        tableView.endUpdates()
+        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
+    
 }
